@@ -10,27 +10,46 @@ import java.util.Set;
 public final class NearestNeighbor implements TspConstructiveHeuristic {
   @Override
   public TspTour computeTour(TspData data, int startCityIndex) {
-    ArrayList<Integer> arrayList = new ArrayList<>(data.getNumberOfCities());
 
-    arrayList.add(startCityIndex);
-    int distance = 0;
-    // TODO
-    return new TspTour(data, new int[0], distance);
-  }
-  public int nearestCity(TspData data, int cityS, Set<Integer> listUsed) {
-    int distance = Integer.MAX_VALUE;
-    int index = cityS;
-    for( int i = 0; i < data.getNumberOfCities(); ++i) {
-      if(i == cityS || listUsed.contains(i) ) {
-        continue;
-      }
-      int distanceToI = data.getDistance(cityS, i);
-      if(distanceToI < distance) {
-          distance = distanceToI;
-          index = i;
-      }
+    int distance = 0, totalDistance;
+    int indexNearest = startCityIndex;
+
+    //Get first tour
+    for(int i = 0; i < data.getNumberOfCities(); ++i) {
+        if( i == startCityIndex) {
+          continue;
+        }
+        if(indexNearest == startCityIndex || distance > data.getDistance(i, startCityIndex)) {
+          distance = data.getDistance(i, startCityIndex);
+          indexNearest = i;
+         }
     }
-    return index;
+
+    int[] tour = new int[data.getNumberOfCities()];
+    tour[0] = startCityIndex;
+    tour[1] = indexNearest;
+
+    boolean[] isCityUsed = new boolean[data.getNumberOfCities()];
+    isCityUsed[startCityIndex] = true;
+    isCityUsed[indexNearest] = true;
+    totalDistance = distance;
+    for(int j = 2; j < data.getNumberOfCities(); ++j) {
+      int lastCityIndex = indexNearest;
+      for (int k = 0; k < data.getNumberOfCities(); ++k) {
+        if(isCityUsed[k]) {
+          continue;
+        }
+        if(lastCityIndex == indexNearest || distance > data.getDistance(k, lastCityIndex)) {
+          distance = data.getDistance(k, lastCityIndex);
+          indexNearest = k;
+        }
+      }
+      tour[j] = indexNearest;
+      totalDistance += distance;
+      isCityUsed[indexNearest] = true;
+    }
+
+    return new TspTour(data, tour, totalDistance);
   }
 
 }

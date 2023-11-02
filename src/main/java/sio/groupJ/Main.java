@@ -32,6 +32,9 @@ public final class Main {
       NearestNeighbor n = new NearestNeighbor();
       TspTour tour = n.computeTour(data, 0);
       System.out.println(tour);
+
+      DoubleEndsNearestNeighbor b = new DoubleEndsNearestNeighbor();
+      System.out.println(b.computeTour(data, 0));
     } catch (TspParsingException e) {
       System.out.println("Parsing error" + e.getMessage());
     } catch (FileNotFoundException e) {

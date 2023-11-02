@@ -1,5 +1,11 @@
 package sio.groupJ;
 
+import sio.tsp.TspData;
+import sio.tsp.TspParsingException;
+import sio.tsp.TspTour;
+
+import java.io.FileNotFoundException;
+
 public final class Main {
   public static void main(String[] args) {
 
@@ -21,6 +27,18 @@ public final class Main {
     // vm1748 : 336556
 
     // Exemple de lecture d'un jeu de données :
-    // TspData data = TspData.fromFile("data/att532.dat");
+    try {
+      TspData data = TspData.fromFile("data/att532.dat");
+      NearestNeighbor n = new NearestNeighbor();
+      TspTour tour = n.computeTour(data, 0);
+      System.out.println(tour);
+
+      DoubleEndsNearestNeighbor b = new DoubleEndsNearestNeighbor();
+      System.out.println(b.computeTour(data, 0));
+    } catch (TspParsingException e) {
+      System.out.println("Parsing error" + e.getMessage());
+    } catch (FileNotFoundException e) {
+      System.out.println("File not found" + e.getMessage());
+    }
   }
 }

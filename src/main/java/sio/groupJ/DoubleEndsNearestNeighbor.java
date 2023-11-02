@@ -71,6 +71,8 @@ public final class DoubleEndsNearestNeighbor implements TspConstructiveHeuristic
 
     }
 
+    totalDistance += data.getDistance(tour[frontCounter], tour[backCounter]);
+
     return new TspTour(data, tour, totalDistance);
   }
 }

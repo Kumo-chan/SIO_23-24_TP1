@@ -4,9 +4,6 @@ import sio.tsp.TspData;
 import sio.tsp.TspConstructiveHeuristic;
 import sio.tsp.TspTour;
 
-import java.util.ArrayList;
-import java.util.Set;
-
 public final class NearestNeighbor implements TspConstructiveHeuristic {
   @Override
   public TspTour computeTour(TspData data, int startCityIndex) {
@@ -49,6 +46,7 @@ public final class NearestNeighbor implements TspConstructiveHeuristic {
       isCityUsed[indexNearest] = true;
     }
 
+    totalDistance += data.getDistance(tour[data.getNumberOfCities() -1], tour[0]);
     return new TspTour(data, tour, totalDistance);
   }
 

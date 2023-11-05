@@ -40,16 +40,45 @@ public final class Main {
       System.out.println(tour);
       System.out.println("DENN:");
       DoubleEndsNearestNeighbor b = new DoubleEndsNearestNeighbor();
-      System.out.println(b.computeTour(data, 0));
+      System.out.println(b.computeTour(data, 0) + "\n");
 
     } catch (TspParsingException e) {
       System.out.println("Parsing error" + e.getMessage());
     } catch (FileNotFoundException e) {
       System.out.println("File not found" + e.getMessage());
     }
-    Statistics s1 = new Statistics(532, Algorithm.NN, "data/att532.dat");
-    Statistics s2 = new Statistics(532, Algorithm.DENN, "data/att532.dat");
+    Statistics s1 = new Statistics(Algorithm.NN, "data/att532.dat");
+    Statistics s2 = new Statistics(Algorithm.DENN, "data/att532.dat");
     Statistics.computeBestAlgo(s1,s2);
+    Statistics.compareToShortestRoute(86729, s1, s2);
+
+    Statistics s3 = new Statistics(Algorithm.NN, "data/rat575.dat");
+    Statistics s4 = new Statistics(Algorithm.DENN, "data/rat575.dat");
+    Statistics.computeBestAlgo(s3,s4);
+    Statistics.compareToShortestRoute(6773, s3, s4);
+
+
+    Statistics s5 = new Statistics(Algorithm.NN, "data/rl1889.dat");
+    Statistics s6 = new Statistics(Algorithm.DENN, "data/rl1889.dat");
+    Statistics.computeBestAlgo(s5,s6);
+    Statistics.compareToShortestRoute(316536, s5, s6);
+
+    Statistics s7 = new Statistics(Algorithm.NN, "data/u574.dat");
+    Statistics s8 = new Statistics(Algorithm.DENN, "data/u574.dat");
+    Statistics.computeBestAlgo(s7,s8);
+    Statistics.compareToShortestRoute(36905, s7, s8);
+
+
+    Statistics s9 = new Statistics(Algorithm.NN, "data/u1817.dat");
+    Statistics s10 = new Statistics(Algorithm.DENN, "data/u1817.dat");
+    Statistics.computeBestAlgo(s9,s10);
+    Statistics.compareToShortestRoute(57201, s9, s10);
+
+    Statistics s11 = new Statistics(Algorithm.NN, "data/vm1748.dat");
+    Statistics s12 = new Statistics(Algorithm.DENN, "data/vm1748.dat");
+    Statistics.computeBestAlgo(s9,s10);
+    Statistics.compareToShortestRoute(336556, s11, s12);
+
 
   }
 

@@ -8,27 +8,15 @@ import java.io.FileNotFoundException;
 public class Statistics {
     private long meanRuntime;
     private long meanDistance;
-
     private Main.Algorithm algo;
 
-    public Main.Algorithm getAlgo() {
-        return algo;
-    }
-
-    public long getMeanRuntime() {
-        return meanRuntime;
-    }
-
-    public long getMeanDistance() {
-        return meanDistance;
-    }
-
-    public Statistics(int nbCities, Main.Algorithm algo, String filePath){
+    public Statistics(Main.Algorithm algo, String filePath){
         this.algo = algo;
         try {
             long totalDistance = 0;
             long totalRuntime = 0;
             TspData data = TspData.fromFile(filePath);
+            long nbCities = data.getNumberOfCities();
 
             for (int i = 0; i < nbCities; ++i) {
                 switch (algo) {
@@ -65,8 +53,13 @@ public class Statistics {
     }
     static public void computeBestAlgo(Statistics s1, Statistics s2) {
         System.out.println("The best distance was "
-                + String.valueOf((s1.meanDistance - s2.meanDistance) < 0 ? s1.algo : s2.algo));
+                + ((s1.meanDistance - s2.meanDistance) <= 0 ? ((s1.meanDistance - s2.meanDistance) == 0 ? "Equality" : s1.algo) : s2.algo));
         System.out.println("The best time was "
-                + String.valueOf((s1.meanRuntime - s2.meanRuntime) < 0 ? s1.algo : s2.algo));
+                + ((s1.meanRuntime - s2.meanRuntime) <= 0 ?  ((s1.meanRuntime - s2.meanRuntime) == 0 ? "Equality" : s1.algo) : s2.algo));
+    }
+
+    static public void compareToShortestRoute(double shortestRoute, Statistics s1, Statistics s2) {
+        System.out.println("Ratio with optimal distance: " + s1.meanDistance/shortestRoute + " for " + s1.algo);
+        System.out.println("Ratio with optimal distance: " + s2.meanDistance/shortestRoute + " for " + s2.algo + "\n");
     }
 }

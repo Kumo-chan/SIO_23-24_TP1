@@ -4,6 +4,9 @@ import sio.tsp.TspData;
 import sio.tsp.TspConstructiveHeuristic;
 import sio.tsp.TspTour;
 
+/**
+ * @author Patrick Furrer, Sarah Jallon
+ */
 public final class NearestNeighbor implements TspConstructiveHeuristic {
     /**
      * A method that calculates a tour using the Nearest Neighbor algorithm.
